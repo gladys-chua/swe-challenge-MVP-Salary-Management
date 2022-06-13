@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { EmpInfoComponent } from './emp-info/emp-info.component';
-import { FilterPipe } from './filter.pipe';
 import { SortDirective } from './directive/sort.directive';
 import { FormsModule } from '@angular/forms';
 
@@ -17,7 +16,6 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     HomeComponent,
     EmpInfoComponent,
-    FilterPipe,
     SortDirective
   ],
   imports: [

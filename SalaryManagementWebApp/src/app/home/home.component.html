@@ -1,9 +1,10 @@
 <div class="container">
 
-    <h1>Welcome to the MVP Salary Management WebApp</h1>
+    <h1 class="mb-5">Welcome to the MVP Salary Management WebApp</h1>
 
     <form>
-        <p>Upload a csv file here</p>
+        <h5>Upload a csv file here</h5>
         <input type="file" class="file-upload" (change)="onFileSelected($event)">
     </form>
+    <p class="alert alert-danger" *ngIf="uploadMsg!==''">{{uploadMsg}}</p>
 </div>

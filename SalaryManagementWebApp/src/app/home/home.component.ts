@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   }
 
   filename = ''; 
+  uploadMsg:string = "";
+  error=null;
 
   onFileSelected(event:any) {
     const file:File = event.target.files[0];
@@ -24,9 +26,12 @@ export class HomeComponent implements OnInit {
 
       const formData = new FormData();
       formData.append("file", file);
-      const upload$ = this.http.post("http://localhost:8081/users/upload", formData);
+      const upload$ = this.http.post<{msg:string}>("http://localhost:8081/users/upload", formData);
       upload$.subscribe(responseData=>{
         console.log(responseData);
+        this.uploadMsg = responseData.msg;
+      }, error=>{
+        this.uploadMsg = error.message;
       });
     }
   }

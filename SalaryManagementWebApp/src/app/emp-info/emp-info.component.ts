@@ -54,7 +54,10 @@ export class EmpInfoComponent implements OnInit {
       if (v === null){
         this.users=[];
       } else {
-        this.users=v.slice(this.offset,this.limit);
+        var index = this.users.indexOf(u)
+        if (index !== -1) {
+          this.users.splice(index, 1);
+        }
       }
     })
   }
