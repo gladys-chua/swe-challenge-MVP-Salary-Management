@@ -23,7 +23,7 @@ This is a employee salary management web application to help the HR department m
 ## User Story 3: CRUD Feature
 - From the last column of the Employee Dashboard, 2 buttons are available for user to edit or delete the employees' data.
 - Edit
- - Yet to complete
+ - Edit the chosen employee from the front-end and the information will be updated at both the frontend and the backend
 - Delete
  - Deletes the chosen employee data from the database
 #
