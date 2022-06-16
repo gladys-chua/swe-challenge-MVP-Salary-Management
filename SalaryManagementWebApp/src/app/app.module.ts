@@ -9,6 +9,12 @@ import { HomeComponent } from './home/home.component';
 import { EmpInfoComponent } from './emp-info/emp-info.component';
 import { SortDirective } from './directive/sort.directive';
 import { FormsModule } from '@angular/forms';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,15 +22,22 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     HomeComponent,
     EmpInfoComponent,
-    SortDirective
+    SortDirective,
+    EditDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    NoopAnimationsModule,
+    MatFormFieldModule, 
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditDialogComponent]
 })
 export class AppModule { }

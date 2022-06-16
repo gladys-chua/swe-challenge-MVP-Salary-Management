@@ -39,7 +39,7 @@
                 <td>{{u.login}}</td>
                 <td>{{u.salary}}</td>
                 <td>
-                    <input class="form-control btn-warning" type="button" value="Edit"/>
+                    <input class="form-control btn-warning" type="button" value="Edit" (click)="openDialog(u)"/>
                     <input class="form-control btn-dark" type="button" value="Delete" (click)="onEmpDelete(u)"/>
                 </td>
             </tr>

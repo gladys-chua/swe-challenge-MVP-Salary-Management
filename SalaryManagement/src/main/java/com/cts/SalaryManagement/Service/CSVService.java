@@ -10,19 +10,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cts.SalaryManagement.Helper.csvHelper;
-import com.cts.SalaryManagement.Repository.UserRepo;
+import com.cognizant.ormlearn.model.Country;
+import com.cts.SalaryManagement.Exception.EmptyFileUploadException;
+import com.cts.SalaryManagement.Helper.CSVHelper;
+import com.cts.SalaryManagement.Repository.UserRepository;
 import com.cts.SalaryManagement.model.User;
 
 @Service
-public class csvService {
+public class CSVService {
 
 	@Autowired
-	UserRepo userRepo;
+	private UserRepository userRepo;
 	
 	public void save(MultipartFile file) {
 		try {
-			List<User> userList = csvHelper.csvToUsers(file.getInputStream());
+			List<User> userList = CSVHelper.csvToUsers(file.getInputStream());
+			if (userList.isEmpty()) {
+				throw new EmptyFileUploadException("Empty file detected: "+ file.getOriginalFilename() + "! Please upload file with entries.");				
+			}
 			userRepo.saveAll(userList);
 			
 		} catch (IOException e) {
@@ -45,8 +50,18 @@ public class csvService {
 	}
 	
 	@Transactional
-	public Optional<User> findById(String id) {
-		return userRepo.findById(id);
+	public User updateUser(String id, String login, String name, Double salary) {
+		Optional<User> result = userRepo.findById(id);
+		User user = null;
+		if (result.isPresent()) {
+			user = result.get();
+			user.setLogin(login);
+			user.setName(name);
+			user.setSalary(salary);
+			userRepo.save(user);
+		} 
+		return user;
+		
 	}
 	
 }
