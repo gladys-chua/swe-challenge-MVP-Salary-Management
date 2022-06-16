@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cognizant.ormlearn.model.Country;
 import com.cts.SalaryManagement.Exception.EmptyFileUploadException;
 import com.cts.SalaryManagement.Helper.CSVHelper;
 import com.cts.SalaryManagement.Repository.UserRepository;
@@ -35,13 +34,14 @@ public class CSVService {
 		}
 	}
 	
+	@Transactional
 	public List<User> getAllUsers() {
 		return userRepo.findAll();
 	}
 	
 	@Transactional
-	public List<User> getFilteredUsers(double minS, double maxS){
-		return userRepo.getFirst30FilteredUsers(minS, maxS);
+	public List<User> getFilteredUsers(double minSalary, double maxSalary){
+		return userRepo.getFirst30FilteredUsers(minSalary, maxSalary);
 	}
 	
 	@Transactional

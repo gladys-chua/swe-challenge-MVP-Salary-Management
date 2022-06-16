@@ -14,8 +14,8 @@ export class EmpInfoComponent implements OnInit {
 
   users:Employee[] = [];
   headElements:string[] = ['id',"name","login","salary"];
-  minS: number = 0;
-  maxS: number = 99999;
+  minSalary: number = 0;
+  maxSalary: number = 99999;
   offset: number = 0;
   limit: number = 30;
   private apiUrl:string = "http://localhost:8081/users/"; 
@@ -39,8 +39,8 @@ export class EmpInfoComponent implements OnInit {
   }
 
   valChange() {
-    this.router.navigate(['/employees'],{queryParams: {minSalary:this.minS, maxSalary:this.maxS, offset:this.offset, limit:this.limit}});
-    this.http.get<Employee[]>(this.apiUrl+this.minS+"/"+this.maxS+"/"+this.offset+"/"+this.limit)
+    this.router.navigate(['/employees'],{queryParams: {minSalary:this.minSalary, maxSalary:this.maxSalary, offset:this.offset, limit:this.limit}});
+    this.http.get<Employee[]>(this.apiUrl+this.minSalary+"/"+this.maxSalary+"/"+this.offset+"/"+this.limit)
     .subscribe(data=>{
       if (data === null){
         this.users=[];

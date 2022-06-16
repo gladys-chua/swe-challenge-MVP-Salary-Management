@@ -25,14 +25,15 @@ import com.cts.SalaryManagement.model.User;
 public class CSVController {
 
 	@Autowired
-	private CSVService service;
+	private CSVService csvService;
 
+	// User Story 1: Upload CSV file to Database
 	@PostMapping("/users/upload")
 	public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
 		String msg;
 		if (CSVHelper.hasCSVFormat(file)) {
 			try {
-				service.save(file);
+				csvService.save(file);
 				msg = "File uploaded successfully: " + file.getOriginalFilename();
 				return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(msg));
 			} catch (EmptyFileUploadException e) {
@@ -47,10 +48,11 @@ public class CSVController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(msg));
 	}
 
+	// User Story 2: To retrieve all users for display
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> getAllUsers() {
 		try {
-			List<User> users = service.getAllUsers();
+			List<User> users = csvService.getAllUsers();
 			if (users.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
@@ -59,13 +61,20 @@ public class CSVController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	// method for testing
+	@GetMapping("/usersTest")
+	public List<User> getAllUsersTest() {
+		return csvService.getAllUsers();
+	}
 
+	// api to filter users from salary range given
 	@GetMapping("/users/{minSalary}/{maxSalary}/{offset}/{limit}")
 	public ResponseEntity<List<User>> getAllUsers(@PathVariable("minSalary") Double minSalary,
 			@PathVariable("maxSalary") Double maxSalary, @PathVariable("offset") Integer offset,
 			@PathVariable("limit") Integer limit) {
 		try {
-			List<User> users = service.getFilteredUsers(minSalary, maxSalary);
+			List<User> users = csvService.getFilteredUsers(minSalary, maxSalary);
 			if (users.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
@@ -75,11 +84,12 @@ public class CSVController {
 		}
 	}
 
+	// api to delete user
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<List<User>> deleteUser(@PathVariable("id") String id) {
 		try {
-			service.deleteById(id);
-			List<User> users = service.getAllUsers();
+			csvService.deleteById(id);
+			List<User> users = csvService.getAllUsers();
 			if (users.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
@@ -90,13 +100,14 @@ public class CSVController {
 		}
 	}
 
+	// User Story 3: Edit user information
 	@GetMapping("/users/update/{id}/{login}/{name}/{salary}")
 	public ResponseEntity<User> UpdateUser(@PathVariable("id") String id,
 			@PathVariable("login") String login, @PathVariable("name") String name,
 			@PathVariable("salary") Double salary) {
 		try {
 			
-			User user=service.updateUser(id, login, name, salary);
+			User user=csvService.updateUser(id, login, name, salary);
 			return new ResponseEntity<>(user, HttpStatus.OK);
 			
 		} catch (Exception e) {

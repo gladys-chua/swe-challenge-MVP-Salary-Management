@@ -9,3 +9,6 @@ Navigate to `http://localhost:8081/h2` to access the database of the web applica
 
 ## How to run
 From the ```src/main/java/``` folder, ```com.cts.SalaryManagement``` package, from the ```SalaryManagementApplication.java``` file, run as Java Application.
+
+## Unit Test
+Located at the ```src/test/java``` folder
